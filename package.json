@@ -4,8 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npm run dev -w apps/api",
+    "build": "npm run build -ws",
+    "lint": "npm run lint -ws",
+    "typecheck": "npm run typecheck -ws"  
   },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com-personal:k-t18/sprintsight-app.git"
