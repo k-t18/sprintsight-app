@@ -1,33 +1,25 @@
 {
-  "name": "sprintsight-app",
-  "version": "1.0.0",
-  "description": "Sprint planning and tracking made simple",
-  "main": "index.js",
-  "scripts": {
-    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
-    "dev:api": "npm run dev -w apps/api",
-    "dev:web": "npm run dev -w apps/web",
-    "build": "npm run build -ws",
-    "lint": "npm run lint -ws",
-    "typecheck": "npm run typecheck -ws",
-    "db:generate": "npm run db:generate -w apps/api",
-    "db:push": "npm run db:push -w apps/api",
-    "db:migrate": "npm run db:migrate -w apps/api",
-    "db:studio": "npm run db:studio -w apps/api"
-  },
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git@github.com-personal:k-t18/sprintsight-app.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "devDependencies": {
-    "concurrently": "^9.1.0"
-  }
+    "name": "sprintsight-app",
+    "version": "1.0.0",
+    "description": "Sprint planning and tracking made simple",
+    "main": "index.js",
+    "scripts": {
+        "dev": "npm run dev -w apps/web",
+        "build": "npm run build -w apps/web",
+        "start": "npm run start -w apps/web",
+        "lint": "npm run lint -w apps/web",
+        "typecheck": "npm run typecheck -w apps/web"
+    },
+    "workspaces": [
+        "apps/*",
+        "packages/*"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git@github.com-personal:k-t18/sprintsight-app.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs"
 }
