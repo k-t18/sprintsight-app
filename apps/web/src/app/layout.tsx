@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { AppAuthGuard } from '@/components/shared/auth/AppAuthGuard';
 import { RecoveryRedirect } from '@/components/shared/auth/RecoveryRedirect';
+import { Providers } from '@/app/providers';
 import './globals.css';
 
 const geistSans = Geist({
@@ -29,8 +30,10 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
-                <RecoveryRedirect />
-                <AppAuthGuard>{children}</AppAuthGuard>
+                <Providers>
+                    <RecoveryRedirect />
+                    <AppAuthGuard>{children}</AppAuthGuard>
+                </Providers>
             </body>
         </html>
     );

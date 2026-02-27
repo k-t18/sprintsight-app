@@ -1,7 +1,8 @@
 'use client';
 
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase/client';
 
 type ProtectedRouteProps = {
@@ -28,45 +29,42 @@ export function ProtectedRoute({
     children,
     requireAuth = true,
     redirectTo = '/auth/login',
-    redirectIfAuthedTo = '/',
+    redirectIfAuthedTo = '/dashboard',
 }: ProtectedRouteProps) {
     const router = useRouter();
     const pathname = usePathname();
-    const [authState, setAuthState] = useState<AuthState>('loading');
+    const queryClient = useQueryClient();
+
+    const {
+        data: user,
+        isLoading,
+    } = useQuery({
+        queryKey: ['auth-user'],
+        queryFn: async () => {
+            const {
+                data: { user },
+            } = await supabase.auth.getUser();
+            return user ?? null;
+        },
+    });
 
     useEffect(() => {
-        let isMounted = true;
-
-        const checkAuth = async () => {
-            try {
-                const {
-                    data: { user },
-                } = await supabase.auth.getUser();
-
-                if (!isMounted) return;
-
-                setAuthState(user ? 'authenticated' : 'unauthenticated');
-            } catch {
-                if (!isMounted) return;
-                setAuthState('unauthenticated');
-            }
-        };
-
-        checkAuth();
-
-        // Also subscribe to auth changes so navigation stays in sync
-        const {
-            data: authListener,
-        } = supabase.auth.onAuthStateChange((_event, session) => {
-            if (!isMounted) return;
-            setAuthState(session?.user ? 'authenticated' : 'unauthenticated');
-        });
+        const { data: authListener } = supabase.auth.onAuthStateChange(
+            (_event, session) => {
+                queryClient.setQueryData(['auth-user'], session?.user ?? null);
+            },
+        );
 
         return () => {
-            isMounted = false;
             authListener.subscription.unsubscribe();
         };
-    }, []);
+    }, [queryClient]);
+
+    const authState: AuthState = isLoading
+        ? 'loading'
+        : user
+          ? 'authenticated'
+          : 'unauthenticated';
 
     useEffect(() => {
         if (authState === 'loading') return;
@@ -83,7 +81,14 @@ export function ProtectedRoute({
                 router.replace(redirectIfAuthedTo);
             }
         }
-    }, [authState, requireAuth, redirectTo, redirectIfAuthedTo, pathname, router]);
+    }, [
+        authState,
+        requireAuth,
+        redirectTo,
+        redirectIfAuthedTo,
+        pathname,
+        router,
+    ]);
 
     // While we don't know auth state, or while we're about to redirect,
     // avoid rendering the protected content to prevent flicker.
@@ -101,4 +106,3 @@ export function ProtectedRoute({
 
     return <>{children}</>;
 }
-

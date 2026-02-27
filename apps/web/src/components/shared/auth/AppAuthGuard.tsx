@@ -17,11 +17,7 @@ export function AppAuthGuard({ children }: { children: ReactNode }) {
     );
 
     if (isPublicOnly) {
-        return (
-            <ProtectedRoute requireAuth={false} redirectIfAuthedTo="/">
-                {children}
-            </ProtectedRoute>
-        );
+        return <ProtectedRoute requireAuth={false}>{children}</ProtectedRoute>;
     }
 
     return <ProtectedRoute redirectTo="/auth/login">{children}</ProtectedRoute>;
