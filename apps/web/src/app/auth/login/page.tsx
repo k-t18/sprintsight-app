@@ -1,8 +1,10 @@
 'use client';
 import { supabase } from '@/lib/supabase/client';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
+    const router = useRouter();
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
     const [username, setUsername] = useState<string>('');
@@ -14,7 +16,7 @@ const Page = () => {
             return;
         }
         setLoading(true);
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signInWithPassword({
             email: username,
             password: password,
         });
@@ -24,6 +26,7 @@ const Page = () => {
             return;
         }
         setLoading(false);
+        router.replace('/');
     };
 
     return (
