@@ -1,7 +1,40 @@
-import React from 'react';
-import { FolderOpen, Zap, CheckSquare, ArrowRight } from 'lucide-react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { FolderOpen, Zap, CheckSquare, ArrowRight } from 'lucide-react';
+import ProjectForm from '../../project/ProjectForm';
+import SprintForm from '../../sprint/SprintForm';
+import TaskForm from '../../task/TaskForm';
+import dynamic from 'next/dynamic';
+
+const FormDrawer = dynamic(() => import('./FormDrawer'), { ssr: false });
+
 const Dashboard = () => {
+    const [activeForm, setActiveForm] = useState<
+        'project' | 'sprint' | 'task' | null
+    >(null);
+
+    const handleCloseDrawer = () => setActiveForm(null);
+
+    const handleProjectSubmit = (data: any) => {
+        // Integrate with project creation flow here
+        console.log('Create project from dashboard', data);
+        setActiveForm(null);
+    };
+
+    const handleSprintSubmit = (data: any) => {
+        // Integrate with sprint creation flow here
+        console.log('Create sprint from dashboard', data);
+        setActiveForm(null);
+    };
+
+    const handleTaskSubmit = (data: any) => {
+        // Integrate with task creation flow here
+        console.log('Create task from dashboard', data);
+        setActiveForm(null);
+    };
+
     const stats = [
         {
             label: 'Total Projects',
@@ -85,8 +118,9 @@ const Dashboard = () => {
                         Quick Actions
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <Link
-                            href="/projects/new"
+                        <button
+                            type="button"
+                            onClick={() => setActiveForm('project')}
                             className="flex items-center justify-between px-6 py-4 border-2 border-slate-200 rounded-lg hover:border-blue-600 hover:bg-blue-50 transition-all duration-200 group"
                         >
                             <span className="font-semibold text-slate-700 group-hover:text-blue-600">
@@ -96,9 +130,10 @@ const Dashboard = () => {
                                 size={20}
                                 className="text-slate-300 group-hover:text-blue-600"
                             />
-                        </Link>
-                        <Link
-                            href="/sprints/new"
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setActiveForm('sprint')}
                             className="flex items-center justify-between px-6 py-4 border-2 border-slate-200 rounded-lg hover:border-amber-600 hover:bg-amber-50 transition-all duration-200 group"
                         >
                             <span className="font-semibold text-slate-700 group-hover:text-amber-600">
@@ -108,9 +143,10 @@ const Dashboard = () => {
                                 size={20}
                                 className="text-slate-300 group-hover:text-amber-600"
                             />
-                        </Link>
-                        <Link
-                            href="/tasks/new"
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setActiveForm('task')}
                             className="flex items-center justify-between px-6 py-4 border-2 border-slate-200 rounded-lg hover:border-green-600 hover:bg-green-50 transition-all duration-200 group"
                         >
                             <span className="font-semibold text-slate-700 group-hover:text-green-600">
@@ -120,10 +156,45 @@ const Dashboard = () => {
                                 size={20}
                                 className="text-slate-300 group-hover:text-green-600"
                             />
-                        </Link>
+                        </button>
                     </div>
                 </div>
             </div>
+
+            <FormDrawer
+                open={activeForm === 'project'}
+                title="Create Project"
+                onClose={handleCloseDrawer}
+            >
+                <ProjectForm
+                    onSubmit={handleProjectSubmit}
+                    onCancel={handleCloseDrawer}
+                />
+            </FormDrawer>
+
+            <FormDrawer
+                open={activeForm === 'sprint'}
+                title="Create Sprint"
+                onClose={handleCloseDrawer}
+            >
+                <SprintForm
+                    projects={[]}
+                    onSubmit={handleSprintSubmit}
+                    onCancel={handleCloseDrawer}
+                />
+            </FormDrawer>
+
+            <FormDrawer
+                open={activeForm === 'task'}
+                title="Create Task"
+                onClose={handleCloseDrawer}
+            >
+                <TaskForm
+                    sprints={[]}
+                    onSubmit={handleTaskSubmit}
+                    onCancel={handleCloseDrawer}
+                />
+            </FormDrawer>
         </main>
     );
 };

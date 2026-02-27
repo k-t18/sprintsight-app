@@ -1,9 +1,20 @@
 'use client';
 
+import React, { useState } from 'react';
 import Link from 'next/link';
 import SprintsList from '@/components/modules/sprint/SprintList';
+import FormDrawer from '@/components/modules/dashboards/developer/FormDrawer';
+import SprintForm from '@/components/modules/sprint/SprintForm';
 
 export default function SprintsPage() {
+    const [open, setOpen] = useState(false);
+
+    const handleSubmit = (data: any) => {
+        // Integrate with sprint creation flow here
+        console.log('Create sprint from sprints page', data);
+        setOpen(false);
+    };
+
     return (
         <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8">
             <div className="max-w-6xl mx-auto">
@@ -15,12 +26,13 @@ export default function SprintsPage() {
                     <p className="text-slate-600 mb-6">
                         Create and manage sprints for your projects
                     </p>
-                    <Link
-                        href="/sprints/new"
+                    <button
+                        type="button"
+                        onClick={() => setOpen(true)}
                         className="inline-flex px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
                     >
                         + New Sprint
-                    </Link>
+                    </button>
                 </div>
 
                 {/* Sprints List Section */}
@@ -32,6 +44,18 @@ export default function SprintsPage() {
                     />
                 </div>
             </div>
+
+            <FormDrawer
+                open={open}
+                title="Create Sprint"
+                onClose={() => setOpen(false)}
+            >
+                <SprintForm
+                    projects={[]}
+                    onSubmit={handleSubmit}
+                    onCancel={() => setOpen(false)}
+                />
+            </FormDrawer>
         </main>
     );
 }
