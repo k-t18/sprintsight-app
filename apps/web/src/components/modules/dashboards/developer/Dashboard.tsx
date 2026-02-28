@@ -178,7 +178,6 @@ const Dashboard = () => {
                 onClose={handleCloseDrawer}
             >
                 <SprintForm
-                    projects={[]}
                     onSubmit={handleSprintSubmit}
                     onCancel={handleCloseDrawer}
                 />
@@ -190,7 +189,6 @@ const Dashboard = () => {
                 onClose={handleCloseDrawer}
             >
                 <TaskForm
-                    sprints={[]}
                     onSubmit={handleTaskSubmit}
                     onCancel={handleCloseDrawer}
                 />

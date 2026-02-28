@@ -47,7 +47,6 @@ export default function TasksPage() {
                 onClose={() => setOpen(false)}
             >
                 <TaskForm
-                    sprints={[]}
                     onSubmit={handleSubmit}
                     onCancel={() => setOpen(false)}
                 />

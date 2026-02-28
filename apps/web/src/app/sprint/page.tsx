@@ -51,7 +51,6 @@ export default function SprintsPage() {
                 onClose={() => setOpen(false)}
             >
                 <SprintForm
-                    projects={[]}
                     onSubmit={handleSubmit}
                     onCancel={() => setOpen(false)}
                 />
