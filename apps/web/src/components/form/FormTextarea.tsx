@@ -8,17 +8,17 @@ const textareaError = 'border-red-500 focus:border-red-600 focus:ring-red-500';
 const textareaNormal =
     'border-slate-300 focus:border-blue-500 focus:ring-blue-500';
 
-interface FormTextareaProps
-    extends Omit<
-        React.TextareaHTMLAttributes<HTMLTextAreaElement>,
-        'className'
-    > {
+interface FormTextareaProps extends Omit<
+    React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    'className'
+> {
     id: string;
     label: string;
     error?: string;
     icon?: ReactNode;
     required?: boolean;
     wrapperClassName?: string;
+    className?: string;
 }
 
 export function FormTextarea({

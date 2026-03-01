@@ -27,6 +27,7 @@ interface FormSelectProps
     options: SelectOption[];
     placeholder?: string;
     wrapperClassName?: string;
+    className?: string;
 }
 
 export function FormSelect({
