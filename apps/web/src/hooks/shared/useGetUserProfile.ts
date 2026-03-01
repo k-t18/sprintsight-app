@@ -2,28 +2,17 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase/client';
-
-type UserProfile = {
-    id: string;
-    full_name: string | null;
-    role: string | null;
-};
+import { UserProfileTypes } from '@/types/user/userProfile.types';
+import { getLoggedInUser } from './useGetLoggedInUser';
 
 type UseGetUserProfileResult = {
-    profile: UserProfile | null;
+    profile: UserProfileTypes | null;
     loading: boolean;
     error: string | null;
 };
 
-async function fetchUserProfile(): Promise<UserProfile | null> {
-    const {
-        data: { user },
-        error: userError,
-    } = await supabase.auth.getUser();
-
-    if (userError) {
-        throw userError;
-    }
+async function fetchUserProfile(): Promise<UserProfileTypes | null> {
+    const user = await getLoggedInUser();
 
     if (!user) {
         return null;
@@ -49,14 +38,12 @@ async function fetchUserProfile(): Promise<UserProfile | null> {
 }
 
 export function useGetUserProfile(): UseGetUserProfileResult {
-    const {
-        data,
-        isLoading,
-        error,
-    } = useQuery<UserProfile | null, Error>({
-        queryKey: ['user-profile'],
-        queryFn: fetchUserProfile,
-    });
+    const { data, isLoading, error } = useQuery<UserProfileTypes | null, Error>(
+        {
+            queryKey: ['user-profile'],
+            queryFn: fetchUserProfile,
+        },
+    );
 
     return {
         profile: data ?? null,
@@ -64,4 +51,3 @@ export function useGetUserProfile(): UseGetUserProfileResult {
         error: error ? error.message : null,
     };
 }
-

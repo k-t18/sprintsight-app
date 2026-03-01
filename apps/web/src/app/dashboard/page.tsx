@@ -5,6 +5,7 @@ import DeveloperDashboard from '@/components/modules/dashboards/developer/Dashbo
 import LeadDashboard from '@/components/modules/dashboards/lead/Dashboard';
 const Page = () => {
     const { profile, loading, error } = useGetUserProfile();
+    console.log('profile', profile);
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
     return (

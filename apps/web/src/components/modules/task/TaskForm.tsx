@@ -15,6 +15,7 @@ import {
     taskStatusOptions,
 } from '@/constants/taskStatusOptions';
 import { supabase } from '@/lib/supabase/client';
+import useAssignedProjects from '@/hooks/project/useAssignedProjects';
 
 export interface TaskFormValues {
     title: string;
@@ -40,7 +41,7 @@ const defaultValues: TaskFormValues = {
 };
 
 export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
-    const { data: projectsData } = useGetProjects();
+    const { projects: assignedProjects } = useAssignedProjects();
 
     const {
         control,
@@ -57,9 +58,10 @@ export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
     const { data: sprintsData } = useGetSprints(projectId || undefined, {
         enabled: !!projectId,
     });
-
-    const projectOptions =
-        projectsData?.map((p) => ({ value: p.id, label: p.name })) ?? [];
+    const projectOptions = assignedProjects.map((p) => ({
+        value: p.id,
+        label: p.name,
+    }));
     const sprintOptions =
         sprintsData?.map((s) => ({ value: s.id, label: s.name })) ?? [];
 
@@ -106,7 +108,9 @@ export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
                         <FormSelect
                             id="project_id"
                             label="Project"
-                            options={projectOptions}
+                            options={
+                                projectOptions
+                            }
                             placeholder="Select a project"
                             wrapperClassName=""
                             {...field}

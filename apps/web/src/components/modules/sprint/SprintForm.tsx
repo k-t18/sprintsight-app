@@ -47,7 +47,7 @@ export default function SprintForm({ onSubmit, onCancel }: SprintFormProps) {
 
     const projectOptions =
         projectsData?.map((p) => ({ value: p.id, label: p.name })) ?? [];
-
+    console.log('projectsData', projectsData);
     const onSubmitForm = async (data: SprintFormValues) => {
         try {
             const { error } = await supabase.from('sprints').insert([
