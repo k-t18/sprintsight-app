@@ -84,17 +84,17 @@ const Page = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen gap-4 px-4">
-            <h1 className="text-2xl font-bold">Forgot Password</h1>
+        <div className="flex flex-col items-center justify-center min-h-screen gap-4 px-4 bg-brand-base">
+            <h1 className="text-2xl font-bold text-brand-text">Forgot Password</h1>
 
             {step === 'email' && (
                 <>
-                    <p className="text-sm text-slate-500 text-center max-w-sm">
+                    <p className="text-sm text-brand-textSecondary text-center max-w-sm">
                         Enter your email. We&apos;ll send a verification code to
                         reset your password.
                     </p>
                     <input
-                        className="border border-primary-300 rounded-md p-2 w-full max-w-xs text-black"
+                        className="border border-brand-border rounded-md p-2 w-full max-w-xs bg-brand-surface text-brand-text placeholder:text-brand-textMuted focus:border-brand-accent focus:outline-none"
                         type="email"
                         placeholder="Email"
                         value={email}
@@ -102,7 +102,7 @@ const Page = () => {
                         autoFocus
                     />
                     <button
-                        className="bg-primary-500 text-white rounded-md p-2 px-4 hover:bg-primary-600 transition-colors disabled:opacity-50"
+                        className="bg-brand-accent text-brand-base rounded-md p-2 px-4 hover:bg-brand-accentHover transition-colors disabled:opacity-50 font-semibold"
                         onClick={handleSendOtp}
                         disabled={loading}
                     >
@@ -113,11 +113,11 @@ const Page = () => {
 
             {step === 'otp' && (
                 <>
-                    <p className="text-sm text-slate-500 text-center max-w-sm">
+                    <p className="text-sm text-brand-textSecondary text-center max-w-sm">
                         Enter the 6-digit code sent to {email}
                     </p>
                     <input
-                        className="border border-primary-300 rounded-md p-2 w-full max-w-xs text-black text-center tracking-widest"
+                        className="border border-brand-border rounded-md p-2 w-full max-w-xs bg-brand-surface text-brand-text text-center tracking-widest placeholder:text-brand-textMuted focus:border-brand-accent focus:outline-none"
                         type="text"
                         inputMode="numeric"
                         maxLength={6}
@@ -129,7 +129,7 @@ const Page = () => {
                         autoFocus
                     />
                     <button
-                        className="bg-primary-500 text-white rounded-md p-2 px-4 hover:bg-primary-600 transition-colors disabled:opacity-50"
+                        className="bg-brand-accent text-brand-base rounded-md p-2 px-4 hover:bg-brand-accentHover transition-colors disabled:opacity-50 font-semibold"
                         onClick={handleVerifyOtp}
                         disabled={loading}
                     >
@@ -137,7 +137,7 @@ const Page = () => {
                     </button>
                     <button
                         type="button"
-                        className="text-sm text-slate-500 hover:text-slate-700"
+                        className="text-sm text-brand-textSecondary hover:text-brand-accent"
                         onClick={() => {
                             setStep('email');
                             setOtp('');
@@ -151,11 +151,11 @@ const Page = () => {
 
             {step === 'password' && (
                 <>
-                    <p className="text-sm text-slate-500 text-center max-w-sm">
+                    <p className="text-sm text-brand-textSecondary text-center max-w-sm">
                         Set a new password for {email}
                     </p>
                     <input
-                        className="border border-primary-300 rounded-md p-2 w-full max-w-xs text-black"
+                        className="border border-brand-border rounded-md p-2 w-full max-w-xs bg-brand-surface text-brand-text placeholder:text-brand-textMuted focus:border-brand-accent focus:outline-none"
                         type="password"
                         placeholder="New password"
                         value={password}
@@ -163,14 +163,14 @@ const Page = () => {
                         autoFocus
                     />
                     <input
-                        className="border border-primary-300 rounded-md p-2 w-full max-w-xs text-black"
+                        className="border border-brand-border rounded-md p-2 w-full max-w-xs bg-brand-surface text-brand-text placeholder:text-brand-textMuted focus:border-brand-accent focus:outline-none"
                         type="password"
                         placeholder="Confirm new password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                     <button
-                        className="bg-primary-500 text-white rounded-md p-2 px-4 hover:bg-primary-600 transition-colors disabled:opacity-50"
+                        className="bg-brand-accent text-brand-base rounded-md p-2 px-4 hover:bg-brand-accentHover transition-colors disabled:opacity-50 font-semibold"
                         onClick={handleUpdatePassword}
                         disabled={loading}
                     >
@@ -180,19 +180,19 @@ const Page = () => {
             )}
 
             {error && (
-                <div className="text-red-500 text-sm text-center max-w-xs">
+                <div className="text-red-400 text-sm text-center max-w-xs">
                     {error}
                 </div>
             )}
             {success && (
-                <div className="text-green-600 text-sm text-center max-w-xs">
+                <div className="text-emerald-400 text-sm text-center max-w-xs">
                     {success}
                 </div>
             )}
 
             <a
                 href="/auth/login"
-                className="text-sm text-primary-600 hover:underline mt-2"
+                className="text-sm text-brand-accent hover:underline mt-2"
             >
                 Back to login
             </a>

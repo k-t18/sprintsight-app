@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
 
 const primaryClass =
-    'flex-1 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg';
+    'flex-1 px-6 py-3 bg-brand-accent hover:bg-brand-accentHover text-brand-base font-semibold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg';
 const secondaryClass =
-    'px-4 py-3 border-2 border-slate-300 text-slate-700 font-semibold rounded-lg hover:bg-slate-50 transition-all';
+    'px-4 py-3 border-2 border-brand-border text-brand-textSecondary font-semibold rounded-lg hover:bg-brand-surfaceHover transition-all';
 const fullPrimaryClass =
-    'w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg';
+    'w-full px-6 py-3 bg-brand-accent hover:bg-brand-accentHover text-brand-base font-semibold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg';
 
 interface FormButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {

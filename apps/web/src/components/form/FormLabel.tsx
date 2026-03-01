@@ -18,11 +18,11 @@ export function FormLabel({
     return (
         <label
             htmlFor={htmlFor}
-            className={`block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2 ${className}`}
+            className={`block text-sm font-semibold text-brand-textSecondary mb-2 flex items-center gap-2 ${className}`}
         >
             {icon}
             {children}
-            {required && <span className="text-red-500">*</span>}
+            {required && <span className="text-red-400">*</span>}
         </label>
     );
 }

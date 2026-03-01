@@ -54,25 +54,25 @@ const Page = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 px-4">
-            <div className="w-full max-w-md rounded-2xl border border-slate-800 bg-slate-900/80 shadow-xl backdrop-blur-md p-8 space-y-6">
+        <div className="min-h-screen flex items-center justify-center bg-brand-base px-4">
+            <div className="w-full max-w-md rounded-2xl border border-brand-border bg-brand-surface shadow-xl backdrop-blur-md p-8 space-y-6">
                 <div className="space-y-2 text-center">
-                    <h1 className="text-2xl font-semibold tracking-tight text-white">
+                    <h1 className="text-2xl font-semibold tracking-tight text-brand-text">
                         Reset your password
                     </h1>
-                    <p className="text-sm text-slate-400">
+                    <p className="text-sm text-brand-textSecondary">
                         Choose a strong new password for your SprintSight account.
                     </p>
                 </div>
 
                 <div className="space-y-4">
                     <div className="space-y-1">
-                        <label className="block text-sm font-medium text-slate-300">
+                        <label className="block text-sm font-medium text-brand-textSecondary">
                             New password
                         </label>
                         <input
                             type="password"
-                            className="w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white placeholder-slate-500 outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
+                            className="w-full rounded-md border border-brand-border bg-brand-base px-3 py-2 text-sm text-brand-text placeholder-brand-textMuted outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent"
                             placeholder="Enter a new password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -81,12 +81,12 @@ const Page = () => {
                     </div>
 
                     <div className="space-y-1">
-                        <label className="block text-sm font-medium text-slate-300">
+                        <label className="block text-sm font-medium text-brand-textSecondary">
                             Confirm new password
                         </label>
                         <input
                             type="password"
-                            className="w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white placeholder-slate-500 outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
+                            className="w-full rounded-md border border-brand-border bg-brand-base px-3 py-2 text-sm text-brand-text placeholder-brand-textMuted outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent"
                             placeholder="Re-enter your new password"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -110,7 +110,7 @@ const Page = () => {
                     type="button"
                     onClick={handleReset}
                     disabled={loading}
-                    className={`w-full rounded-md bg-primary-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-slate-900 ${
+                    className={`w-full rounded-md bg-brand-accent px-4 py-2 text-sm font-medium text-brand-base transition-colors hover:bg-brand-accentHover focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 focus:ring-offset-brand-surface ${
                         loading ? 'opacity-60 cursor-not-allowed' : ''
                     }`}
                 >
@@ -120,7 +120,7 @@ const Page = () => {
                 <button
                     type="button"
                     onClick={() => router.push('/login')}
-                    className="w-full text-center text-sm text-slate-400 hover:text-slate-200 transition-colors"
+                    className="w-full text-center text-sm text-brand-textSecondary hover:text-brand-text transition-colors"
                 >
                     Back to login
                 </button>

@@ -73,16 +73,16 @@ export default function SprintForm({ onSubmit, onCancel }: SprintFormProps) {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
+        <div className="bg-brand-surface rounded-xl p-6 border border-brand-border">
             <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-slate-900">
+                <h2 className="text-xl font-bold text-brand-text">
                     Create New Sprint
                 </h2>
                 <button
                     onClick={onCancel}
-                    className="p-1 hover:bg-slate-100 rounded-lg transition-colors"
+                    className="p-1 hover:bg-brand-surfaceHover rounded-lg transition-colors"
                 >
-                    <X size={20} className="text-slate-500" />
+                    <X size={20} className="text-brand-textSecondary" />
                 </button>
             </div>
 

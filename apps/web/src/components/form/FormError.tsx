@@ -5,6 +5,6 @@ interface FormErrorProps {
 
 export function FormError({ message, className = '' }: FormErrorProps) {
     return (
-        <p className={`text-red-600 text-sm mt-1 ${className}`}>{message}</p>
+        <p className={`text-red-400 text-sm mt-1 ${className}`}>{message}</p>
     );
 }

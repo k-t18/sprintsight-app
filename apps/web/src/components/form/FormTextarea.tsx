@@ -3,10 +3,10 @@ import { FormError } from './FormError';
 import type { ReactNode } from 'react';
 
 const textareaBase =
-    'w-full px-4 py-2.5 border-2 rounded-lg focus:outline-none transition-all resize-none bg-white text-slate-900 placeholder:text-slate-500';
-const textareaError = 'border-red-500 focus:border-red-600 focus:ring-red-500';
+    'w-full px-4 py-2.5 border-2 rounded-lg focus:outline-none transition-all resize-none bg-brand-base text-brand-text placeholder:text-brand-textMuted';
+const textareaError = 'border-red-500 focus:border-red-400 focus:ring-red-500';
 const textareaNormal =
-    'border-slate-300 focus:border-blue-500 focus:ring-blue-500';
+    'border-brand-border focus:border-brand-accent focus:ring-brand-accent';
 
 interface FormTextareaProps extends Omit<
     React.TextareaHTMLAttributes<HTMLTextAreaElement>,

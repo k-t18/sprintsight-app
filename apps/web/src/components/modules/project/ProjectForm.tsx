@@ -109,9 +109,9 @@ export default function ProjectForm({ onSubmit, onCancel }: ProjectFormProps) {
     return (
         <form
             onSubmit={rhfSubmit(onSubmitForm)}
-            className="bg-white rounded-xl shadow-lg p-6 border border-slate-200"
+            className="bg-brand-surface rounded-xl p-6 border border-brand-border"
         >
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">
+            <h2 className="text-2xl font-bold text-brand-text mb-6">
                 Create New Project
             </h2>
 
