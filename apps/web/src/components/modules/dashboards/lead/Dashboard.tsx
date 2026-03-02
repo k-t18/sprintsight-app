@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FolderOpen, Zap, CheckSquare, ArrowRight, LogOut } from 'lucide-react';
+import { FolderOpen, Zap, CheckSquare, ArrowRight, LogOut, Users } from 'lucide-react';
 import ProjectForm from '../../project/ProjectForm';
 import SprintForm from '../../sprint/SprintForm';
 import dynamic from 'next/dynamic';
@@ -77,14 +77,23 @@ const Dashboard = () => {
                             one place.
                         </p>
                     </div>
-                    <button
-                        type="button"
-                        onClick={handleLogout}
-                        className="flex items-center gap-2 px-4 py-2 border border-brand-border rounded-lg text-brand-textSecondary hover:bg-brand-surface hover:text-brand-text transition-colors"
-                    >
-                        <LogOut size={18} />
-                        Logout
-                    </button>
+                    <div className="flex items-center gap-2">
+                        <Link
+                            href="/team-overview"
+                            className="flex items-center gap-2 px-4 py-2 border border-brand-border rounded-lg text-brand-textSecondary hover:bg-brand-surface hover:text-brand-text transition-colors"
+                        >
+                            <Users size={18} />
+                            Team Overview
+                        </Link>
+                        <button
+                            type="button"
+                            onClick={handleLogout}
+                            className="flex items-center gap-2 px-4 py-2 border border-brand-border rounded-lg text-brand-textSecondary hover:bg-brand-surface hover:text-brand-text transition-colors"
+                        >
+                            <LogOut size={18} />
+                            Logout
+                        </button>
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">

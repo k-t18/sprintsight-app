@@ -8,7 +8,6 @@ import {
     FormSelect,
     FormButton,
 } from '@/components/form';
-import useGetProjects from '@/hooks/shared/useGetProjects';
 import useGetSprints from '@/hooks/shared/useGetSprints';
 import {
     taskPriorityOptions,
@@ -16,6 +15,7 @@ import {
 } from '@/constants/taskStatusOptions';
 import { supabase } from '@/lib/supabase/client';
 import useAssignedProjects from '@/hooks/project/useAssignedProjects';
+import { getLoggedInUser } from '@/hooks/shared/useGetLoggedInUser';
 
 export interface TaskFormValues {
     title: string;
@@ -68,10 +68,13 @@ export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
     const onSubmitForm = async (
         data: TaskFormValues & { project_id: string },
     ) => {
+        const user = await getLoggedInUser();
+        if (!user?.id) return;
         const { project_id: _, ...rest } = data;
         const payload = {
             ...rest,
             due_date: rest.due_date?.trim() ? rest.due_date : null,
+            created_by: user.id,
         };
         try {
             const { error } = await supabase.from('tasks').insert(payload);
