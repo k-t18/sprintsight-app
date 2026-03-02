@@ -8,6 +8,7 @@ import TaskForm from '../../task/TaskForm';
 import dynamic from 'next/dynamic';
 import useAssignedProjects from '@/hooks/project/useAssignedProjects';
 import { supabase } from '@/lib/supabase/client';
+import { usePushNotifications } from '@/hooks/shared/usePushNotifications';
 
 const FormDrawer = dynamic(() => import('./FormDrawer'), { ssr: false });
 
@@ -15,6 +16,7 @@ const Dashboard = () => {
     const router = useRouter();
     const [activeForm, setActiveForm] = useState<'task' | null>(null);
     useAssignedProjects();
+    const { status, enable } = usePushNotifications();
     const handleCloseDrawer = () => setActiveForm(null);
 
     const handleLogout = async () => {
@@ -62,10 +64,16 @@ const Dashboard = () => {
                             Welcome to SprintSight
                         </h1>
                         <p className="text-xl text-brand-textSecondary">
-                            Manage your projects, sprints, and tasks efficiently in
-                            one place.
+                            Manage your projects, sprints, and tasks efficiently
+                            in one place.
                         </p>
                     </div>
+                    <button
+                        onClick={enable}
+                        className="rounded-xl bg-slate-900 px-4 py-2 text-white"
+                    >
+                        Enable Notifications ({status})
+                    </button>
                     <button
                         type="button"
                         onClick={handleLogout}
