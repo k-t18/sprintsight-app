@@ -36,7 +36,7 @@ async function fetchUserProfile(): Promise<UserProfileTypes | null> {
         role: (data as any).role ?? null,
     };
 }
-
+// Query Profile table to get user profile
 export function useGetUserProfile(): UseGetUserProfileResult {
     const { data, isLoading, error } = useQuery<UserProfileTypes | null, Error>(
         {
