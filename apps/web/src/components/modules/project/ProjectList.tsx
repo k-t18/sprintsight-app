@@ -27,19 +27,19 @@ interface ProjectsListProps {
 }
 
 const statusConfig: Record<string, { color: string; bg: string; icon: any }> = {
-    Planning: { color: 'text-blue-700', bg: 'bg-blue-100', icon: AlertCircle },
-    'In Progress': { color: 'text-amber-700', bg: 'bg-amber-100', icon: Clock },
+    Planning: { color: 'text-blue-300', bg: 'bg-blue-500/15', icon: AlertCircle },
+    'In Progress': { color: 'text-amber-300', bg: 'bg-amber-500/15', icon: Clock },
     'On Hold': {
-        color: 'text-orange-700',
-        bg: 'bg-orange-100',
+        color: 'text-orange-300',
+        bg: 'bg-orange-500/15',
         icon: AlertCircle,
     },
     Completed: {
-        color: 'text-green-700',
-        bg: 'bg-green-100',
+        color: 'text-emerald-300',
+        bg: 'bg-emerald-500/15',
         icon: CheckCircle2,
     },
-    Cancelled: { color: 'text-red-700', bg: 'bg-red-100', icon: Ban },
+    Cancelled: { color: 'text-red-300', bg: 'bg-red-500/15', icon: Ban },
 };
 
 export default function ProjectsList({
@@ -48,8 +48,8 @@ export default function ProjectsList({
 }: ProjectsListProps) {
     if (projects.length === 0) {
         return (
-            <div className="bg-white rounded-xl shadow-lg p-12 border border-slate-200 flex flex-col items-center justify-center">
-                <div className="text-slate-400 mb-4">
+            <div className="bg-brand-surface rounded-xl border border-brand-border p-12 flex flex-col items-center justify-center">
+                <div className="text-brand-textMuted mb-4">
                     <svg
                         className="w-16 h-16"
                         fill="none"
@@ -64,10 +64,10 @@ export default function ProjectsList({
                         />
                     </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                <h3 className="text-lg font-semibold text-brand-text mb-2">
                     No projects yet
                 </h3>
-                <p className="text-slate-600">
+                <p className="text-brand-textSecondary">
                     Create your first project to get started
                 </p>
             </div>
@@ -76,7 +76,7 @@ export default function ProjectsList({
 
     return (
         <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">
+            <h2 className="text-2xl font-bold text-brand-text mb-6">
                 Your Projects
             </h2>
             {projects.map((project) => {
@@ -87,15 +87,15 @@ export default function ProjectsList({
                 return (
                     <div
                         key={project.id}
-                        className="bg-white rounded-xl shadow-md p-6 border border-slate-200 hover:shadow-lg transition-all duration-200"
+                        className="bg-brand-surface rounded-xl border border-brand-border p-6 hover:border-brand-accent/30 transition-all duration-200"
                     >
                         <div className="flex items-start justify-between mb-4">
                             <div className="flex-1">
-                                <h3 className="text-xl font-bold text-slate-900">
+                                <h3 className="text-xl font-bold text-brand-text">
                                     {project.name}
                                 </h3>
                                 {project.description && (
-                                    <p className="text-slate-600 text-sm mt-1 line-clamp-2">
+                                    <p className="text-brand-textSecondary text-sm mt-1 line-clamp-2">
                                         {project.description}
                                     </p>
                                 )}
@@ -116,7 +116,7 @@ export default function ProjectsList({
                                 </div>
                                 <button
                                     onClick={() => onDelete?.(project.id)}
-                                    className="p-2 hover:bg-red-50 rounded-lg transition-colors text-red-500 hover:text-red-700"
+                                    className="p-2 hover:bg-red-500/10 rounded-lg transition-colors text-red-400 hover:text-red-300"
                                 >
                                     <Trash2 size={18} />
                                 </button>
@@ -124,33 +124,31 @@ export default function ProjectsList({
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                            {/* Manager Info */}
-                            <div className="flex items-start gap-3 bg-slate-50 rounded-lg p-3">
+                            <div className="flex items-start gap-3 bg-brand-base rounded-lg p-3">
                                 <Users
                                     size={18}
-                                    className="text-blue-600 mt-0.5 flex-shrink-0"
+                                    className="text-brand-accent mt-0.5 flex-shrink-0"
                                 />
                                 <div>
-                                    <p className="text-xs font-semibold text-slate-500 uppercase">
+                                    <p className="text-xs font-semibold text-brand-textMuted uppercase">
                                         Manager
                                     </p>
-                                    <p className="text-sm font-semibold text-slate-900">
+                                    <p className="text-sm font-semibold text-brand-text">
                                         {project.manager}
                                     </p>
                                 </div>
                             </div>
 
-                            {/* Dates Info */}
-                            <div className="flex items-start gap-3 bg-slate-50 rounded-lg p-3">
+                            <div className="flex items-start gap-3 bg-brand-base rounded-lg p-3">
                                 <Calendar
                                     size={18}
-                                    className="text-green-600 mt-0.5 flex-shrink-0"
+                                    className="text-emerald-400 mt-0.5 flex-shrink-0"
                                 />
                                 <div>
-                                    <p className="text-xs font-semibold text-slate-500 uppercase">
+                                    <p className="text-xs font-semibold text-brand-textMuted uppercase">
                                         Duration
                                     </p>
-                                    <p className="text-sm font-semibold text-slate-900">
+                                    <p className="text-sm font-semibold text-brand-text">
                                         {new Date(
                                             project.startDate,
                                         ).toLocaleDateString()}{' '}
@@ -163,9 +161,9 @@ export default function ProjectsList({
                             </div>
                         </div>
 
-                        <div className="flex items-center justify-between text-xs text-slate-500 pt-4 border-t border-slate-200">
+                        <div className="flex items-center justify-between text-xs text-brand-textMuted pt-4 border-t border-brand-border">
                             <span>Created on {project.createdAt}</span>
-                            <span className="px-2 py-1 bg-slate-100 rounded text-slate-600">
+                            <span className="px-2 py-1 bg-brand-base rounded text-brand-textSecondary">
                                 {Math.ceil(
                                     (new Date(project.endDate).getTime() -
                                         new Date(project.startDate).getTime()) /

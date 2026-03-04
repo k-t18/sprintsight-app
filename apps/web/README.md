@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 SprintSight
 
-## Getting Started
+SprintSight is a modern sprint planning and developer visibility platform built to give team leads an eagle-eye view of **who is working on what, in which project, sprint, and task**.
 
-First, run the development server:
+It is designed for high-velocity engineering teams that need clarity, accountability, and real-time progress tracking.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Core Objectives
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🎯 Clear ownership of work across projects and sprints
+- 👀 Lead-level visibility into developer workload
+- ⚡ Fast task creation and assignment flow
+- 🔐 Secure, role-aware access (Lead vs Developer)
+- 📊 Scalable data model for future analytics
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🧠 User Roles
 
-To learn more about Next.js, take a look at the following resources:
+### 🧑‍💼 Lead
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Responsible for:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Creating projects
+- Creating sprints
+- Assigning developers to projects
+- Monitoring overall progress
 
-## Deploy on Vercel
+### 👨‍💻 Developer
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Responsible for:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Viewing only assigned projects
+- Creating and updating tasks
+- Reporting task progress
+
+---
+
+## 🏗️ Tech Stack
+
+### Frontend
+
+- Next.js 15 (App Router)
+- React 19
+- TypeScript
+- TailwindCSS
+- React Hook Form
+- TanStack Query
+
+### Backend / Platform
+
+- Supabase
+
+### Architecture Style
+
+- Monorepo (apps/web)
+- Feature-oriented structure
+- React Server + Client Components
+
+---

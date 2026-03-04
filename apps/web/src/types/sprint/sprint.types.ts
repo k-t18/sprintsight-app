@@ -1,9 +1,11 @@
 import { UUID } from '../id/id.types';
 
-export type Sprint = {
+export type SprintTypes = {
     id: UUID;
-    projectId: UUID;
+    project_id: UUID;
     name: string;
-    startDate?: string; // ISO string for mock
-    endDate?: string;
+    start_date: string;
+    end_date: string;
+    status: string;
+    goal: string;
 };

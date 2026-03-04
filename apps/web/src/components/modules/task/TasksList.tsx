@@ -10,22 +10,22 @@ interface TasksListProps {
 
 const getPriorityColor = (priority: string) => {
     const colors: Record<string, string> = {
-        Critical: 'bg-red-100 text-red-800',
-        High: 'bg-orange-100 text-orange-800',
-        Medium: 'bg-yellow-100 text-yellow-800',
-        Low: 'bg-green-100 text-green-800',
+        Critical: 'bg-red-500/15 text-red-300',
+        High: 'bg-orange-500/15 text-orange-300',
+        Medium: 'bg-yellow-500/15 text-yellow-300',
+        Low: 'bg-emerald-500/15 text-emerald-300',
     };
-    return colors[priority] || 'bg-slate-100 text-slate-800';
+    return colors[priority] || 'bg-brand-base text-brand-textSecondary';
 };
 
 const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
-        'To Do': 'bg-slate-100 text-slate-800',
-        'In Progress': 'bg-blue-100 text-blue-800',
-        'In Review': 'bg-purple-100 text-purple-800',
-        Done: 'bg-green-100 text-green-800',
+        'To Do': 'bg-brand-base text-brand-textSecondary',
+        'In Progress': 'bg-blue-500/15 text-blue-300',
+        'In Review': 'bg-purple-500/15 text-purple-300',
+        Done: 'bg-emerald-500/15 text-emerald-300',
     };
-    return colors[status] || 'bg-slate-100 text-slate-800';
+    return colors[status] || 'bg-brand-base text-brand-textSecondary';
 };
 
 export default function TasksList({
@@ -48,12 +48,12 @@ export default function TasksList({
 
     if (tasks.length === 0) {
         return (
-            <div className="bg-white rounded-xl shadow-lg p-12 border border-slate-200 text-center">
-                <Zap size={48} className="mx-auto text-slate-300 mb-4" />
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">
+            <div className="bg-brand-surface rounded-xl border border-brand-border p-12 text-center">
+                <Zap size={48} className="mx-auto text-brand-textMuted mb-4" />
+                <h3 className="text-xl font-semibold text-brand-text mb-2">
                     No tasks yet
                 </h3>
-                <p className="text-slate-600">
+                <p className="text-brand-textSecondary">
                     Create your first task to start tracking progress
                 </p>
             </div>
@@ -65,39 +65,36 @@ export default function TasksList({
             {tasks.map((task) => (
                 <div
                     key={task.id}
-                    className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow border border-slate-200 overflow-hidden hover:border-blue-300"
+                    className="bg-brand-surface rounded-xl border border-brand-border overflow-hidden hover:border-brand-accent/30 transition-all"
                 >
                     <div className="p-6">
-                        {/* Header */}
                         <div className="flex items-start justify-between mb-4">
                             <div className="flex-1">
-                                <h3 className="text-lg font-bold text-slate-900 mb-2">
+                                <h3 className="text-lg font-bold text-brand-text mb-2">
                                     {task.title}
                                 </h3>
-                                <p className="text-sm text-slate-600">
+                                <p className="text-sm text-brand-textSecondary">
                                     Sprint: {getSprintName(task.sprintId)}
                                 </p>
                             </div>
                             <button
                                 onClick={() => onDelete(task.id)}
-                                className="p-2 hover:bg-red-50 rounded-lg transition-colors text-red-500 hover:text-red-700"
+                                className="p-2 hover:bg-red-500/10 rounded-lg transition-colors text-red-400 hover:text-red-300"
                             >
                                 <Trash2 size={18} />
                             </button>
                         </div>
 
-                        {/* Description */}
-                        <p className="text-slate-700 mb-4 text-sm leading-relaxed">
+                        <p className="text-brand-textSecondary mb-4 text-sm leading-relaxed">
                             {task.description}
                         </p>
 
-                        {/* Meta Info */}
-                        <div className="grid grid-cols-3 gap-4 mb-4 pt-4 border-t border-slate-200">
+                        <div className="grid grid-cols-3 gap-4 mb-4 pt-4 border-t border-brand-border">
                             <div>
-                                <p className="text-xs text-slate-500 mb-1">
+                                <p className="text-xs text-brand-textMuted mb-1">
                                     Duration
                                 </p>
-                                <p className="font-semibold text-slate-900">
+                                <p className="font-semibold text-brand-text">
                                     {calculateDuration(
                                         task.startDate,
                                         task.endDate,
@@ -106,24 +103,23 @@ export default function TasksList({
                                 </p>
                             </div>
                             <div>
-                                <p className="text-xs text-slate-500 mb-1">
+                                <p className="text-xs text-brand-textMuted mb-1">
                                     Start Date
                                 </p>
-                                <p className="font-semibold text-slate-900">
+                                <p className="font-semibold text-brand-text">
                                     {task.startDate}
                                 </p>
                             </div>
                             <div>
-                                <p className="text-xs text-slate-500 mb-1">
+                                <p className="text-xs text-brand-textMuted mb-1">
                                     End Date
                                 </p>
-                                <p className="font-semibold text-slate-900">
+                                <p className="font-semibold text-brand-text">
                                     {task.endDate}
                                 </p>
                             </div>
                         </div>
 
-                        {/* Status and Priority Badges */}
                         <div className="flex justify-end gap-2">
                             <span
                                 className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${getPriorityColor(task.priority)}`}

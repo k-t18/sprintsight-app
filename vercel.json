@@ -1,0 +1,7 @@
+{
+    "crons": [
+        { "path": "/api/cron/push-nudge", "schedule": "30 6 * * *" },
+        { "path": "/api/cron/push-nudge", "schedule": "30 9 * * *" },
+        { "path": "/api/cron/push-nudge", "schedule": "30 12 * * *" }
+    ]
+}

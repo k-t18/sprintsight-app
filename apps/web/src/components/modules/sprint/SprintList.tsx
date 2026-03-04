@@ -11,12 +11,12 @@ interface SprintListProps {
 
 const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
-        Planning: 'bg-yellow-100 text-yellow-800',
-        Active: 'bg-green-100 text-green-800',
-        Completed: 'bg-blue-100 text-blue-800',
-        'On Hold': 'bg-orange-100 text-orange-800',
+        Planning: 'bg-yellow-500/15 text-yellow-300',
+        Active: 'bg-emerald-500/15 text-emerald-300',
+        Completed: 'bg-blue-500/15 text-blue-300',
+        'On Hold': 'bg-orange-500/15 text-orange-300',
     };
-    return colors[status] || 'bg-slate-100 text-slate-800';
+    return colors[status] || 'bg-brand-base text-brand-textSecondary';
 };
 
 export default function SprintsList({
@@ -41,12 +41,12 @@ export default function SprintsList({
 
     if (sprints.length === 0) {
         return (
-            <div className="bg-white rounded-xl shadow-lg p-12 border border-slate-200 text-center">
-                <Zap size={48} className="mx-auto text-slate-300 mb-4" />
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">
+            <div className="bg-brand-surface rounded-xl border border-brand-border p-12 text-center">
+                <Zap size={48} className="mx-auto text-brand-textMuted mb-4" />
+                <h3 className="text-xl font-semibold text-brand-text mb-2">
                     No sprints yet
                 </h3>
-                <p className="text-slate-600">
+                <p className="text-brand-textSecondary">
                     Create your first sprint to get started with sprint planning
                 </p>
             </div>
@@ -58,40 +58,37 @@ export default function SprintsList({
             {sprints.map((sprint) => (
                 <div
                     key={sprint.id}
-                    className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow border border-slate-200 overflow-hidden hover:border-blue-300"
+                    className="bg-brand-surface rounded-xl border border-brand-border overflow-hidden hover:border-brand-accent/30 transition-all"
                 >
                     <div className="p-6">
-                        {/* Header */}
                         <div className="flex items-start justify-between mb-4">
                             <div className="flex-1">
-                                <h3 className="text-lg font-bold text-slate-900 mb-2">
+                                <h3 className="text-lg font-bold text-brand-text mb-2">
                                     {sprint.name}
                                 </h3>
-                                <div className="flex items-center gap-2 text-sm text-slate-600 mb-3">
+                                <div className="flex items-center gap-2 text-sm text-brand-textSecondary mb-3">
                                     <FolderOpen size={16} />
                                     {getProjectName(sprint.projectId)}
                                 </div>
                             </div>
                             <button
                                 onClick={() => onDelete(sprint.id)}
-                                className="p-2 hover:bg-red-50 rounded-lg transition-colors text-red-500 hover:text-red-700"
+                                className="p-2 hover:bg-red-500/10 rounded-lg transition-colors text-red-400 hover:text-red-300"
                             >
                                 <Trash2 size={18} />
                             </button>
                         </div>
 
-                        {/* Goal */}
-                        <p className="text-slate-700 mb-4 text-sm leading-relaxed">
+                        <p className="text-brand-textSecondary mb-4 text-sm leading-relaxed">
                             {sprint.goal}
                         </p>
 
-                        {/* Meta Info */}
-                        <div className="grid grid-cols-3 gap-4 mb-4 pt-4 border-t border-slate-200">
+                        <div className="grid grid-cols-3 gap-4 mb-4 pt-4 border-t border-brand-border">
                             <div>
-                                <p className="text-xs text-slate-500 mb-1">
+                                <p className="text-xs text-brand-textMuted mb-1">
                                     Duration
                                 </p>
-                                <p className="font-semibold text-slate-900">
+                                <p className="font-semibold text-brand-text">
                                     {calculateDuration(
                                         sprint.startDate,
                                         sprint.endDate,
@@ -100,24 +97,23 @@ export default function SprintsList({
                                 </p>
                             </div>
                             <div>
-                                <p className="text-xs text-slate-500 mb-1">
+                                <p className="text-xs text-brand-textMuted mb-1">
                                     Start Date
                                 </p>
-                                <p className="font-semibold text-slate-900">
+                                <p className="font-semibold text-brand-text">
                                     {sprint.startDate}
                                 </p>
                             </div>
                             <div>
-                                <p className="text-xs text-slate-500 mb-1">
+                                <p className="text-xs text-brand-textMuted mb-1">
                                     End Date
                                 </p>
-                                <p className="font-semibold text-slate-900">
+                                <p className="font-semibold text-brand-text">
                                     {sprint.endDate}
                                 </p>
                             </div>
                         </div>
 
-                        {/* Status Badge */}
                         <div className="flex justify-end">
                             <span
                                 className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(
