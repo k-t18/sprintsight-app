@@ -1,7 +1,7 @@
 'use client';
 
-import { X } from 'lucide-react';
 import { useForm, Controller } from 'react-hook-form';
+import { supabase } from '@/lib/supabase/client';
 import {
     FormInput,
     FormTextarea,
@@ -13,7 +13,6 @@ import {
     taskPriorityOptions,
     taskStatusOptions,
 } from '@/constants/taskStatusOptions';
-import { supabase } from '@/lib/supabase/client';
 import useAssignedProjects from '@/hooks/project/useAssignedProjects';
 import { getLoggedInUser } from '@/hooks/shared/useGetLoggedInUser';
 
@@ -22,7 +21,8 @@ export interface TaskFormValues {
     description: string;
     priority: string;
     status: string;
-    due_date: string | null;
+    start_date: string | null;
+    end_date: string | null;
     sprint_id: string;
 }
 
@@ -36,7 +36,8 @@ const defaultValues: TaskFormValues = {
     description: '',
     priority: 'medium',
     status: 'todo',
-    due_date: '',
+    start_date: '',
+    end_date: '',
     sprint_id: '',
 };
 
@@ -49,6 +50,7 @@ export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
         watch,
         setValue,
         reset,
+        getValues,
         formState: { errors },
     } = useForm<TaskFormValues & { project_id: string }>({
         defaultValues: { ...defaultValues, project_id: '' },
@@ -73,7 +75,8 @@ export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
         const { project_id: _, ...rest } = data;
         const payload = {
             ...rest,
-            due_date: rest.due_date?.trim() ? rest.due_date : null,
+            start_date: rest.start_date?.trim() ? rest.start_date : null,
+            end_date: rest.end_date?.trim() ? rest.end_date : null,
             created_by: user.id,
         };
         try {
@@ -95,26 +98,20 @@ export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
                 <h2 className="text-xl font-bold text-brand-text">
                     Create New Task
                 </h2>
-                <button
-                    onClick={onCancel}
-                    className="p-1 hover:bg-brand-surfaceHover rounded-lg transition-colors"
-                >
-                    <X size={20} className="text-brand-textSecondary" />
-                </button>
             </div>
 
             <form onSubmit={rhfSubmit(onSubmitForm)} className="space-y-5">
                 <Controller
                     name="project_id"
                     control={control}
+                    rules={{ required: 'Please select a project' }}
                     render={({ field }) => (
                         <FormSelect
                             id="project_id"
                             label="Project"
-                            options={
-                                projectOptions
-                            }
+                            options={projectOptions}
                             placeholder="Select a project"
+                            error={errors.project_id?.message}
                             wrapperClassName=""
                             {...field}
                             onChange={(e) => {
@@ -179,21 +176,49 @@ export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
                     )}
                 />
 
-                <Controller
-                    name="due_date"
-                    control={control}
-                    render={({ field }) => (
-                        <FormInput
-                            id="due_date"
-                            type="date"
-                            label="Due Date"
-                            error={errors.due_date?.message}
-                            wrapperClassName=""
-                            {...field}
-                            value={field.value ?? ''}
-                        />
-                    )}
-                />
+                <div className="grid grid-cols-2 gap-4">
+                    <Controller
+                        name="start_date"
+                        control={control}
+                        rules={{ required: 'Start date is required' }}
+                        render={({ field }) => (
+                            <FormInput
+                                id="start_date"
+                                type="date"
+                                label="Start Date"
+                                error={errors.start_date?.message}
+                                wrapperClassName=""
+                                {...field}
+                                value={field.value ?? ''}
+                            />
+                        )}
+                    />
+                    <Controller
+                        name="end_date"
+                        control={control}
+                        rules={{
+                            required: 'End date is required',
+                            validate: (value) => {
+                                const start = getValues('start_date');
+                                if (start && value && value < start) {
+                                    return 'End date cannot be before start date';
+                                }
+                                return true;
+                            },
+                        }}
+                        render={({ field }) => (
+                            <FormInput
+                                id="end_date"
+                                type="date"
+                                label="End Date"
+                                error={errors.end_date?.message}
+                                wrapperClassName=""
+                                {...field}
+                                value={field.value ?? ''}
+                            />
+                        )}
+                    />
+                </div>
 
                 <div className="grid grid-cols-2 gap-4">
                     <Controller
