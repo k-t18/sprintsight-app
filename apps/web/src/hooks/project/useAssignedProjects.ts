@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase/client';
-import { getLoggedInUser } from '../shared/useGetLoggedInUser';
+import { getLoggedInUser } from '@/store/userStore';
 import { ProjectTypes } from '@/types/project/project.types';
 
 async function fetchAssignedProjects(): Promise<ProjectTypes[]> {
-    const user = await getLoggedInUser();
+    const user = getLoggedInUser();
     if (!user) return [];
 
     const { data, error } = await supabase

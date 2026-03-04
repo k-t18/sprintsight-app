@@ -4,6 +4,7 @@ import { ReactNode, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase/client';
+import { useUserStore } from '@/store/userStore';
 
 type ProtectedRouteProps = {
     children: ReactNode;
@@ -42,16 +43,20 @@ export function ProtectedRoute({
         queryKey: ['auth-user'],
         queryFn: async () => {
             const {
-                data: { user },
+                data: { user: authUser },
             } = await supabase.auth.getUser();
-            return user ?? null;
+            const userData = authUser ?? null;
+            useUserStore.getState().setUser(userData);
+            return userData;
         },
     });
 
     useEffect(() => {
         const { data: authListener } = supabase.auth.onAuthStateChange(
             (_event, session) => {
-                queryClient.setQueryData(['auth-user'], session?.user ?? null);
+                const userData = session?.user ?? null;
+                queryClient.setQueryData(['auth-user'], userData);
+                useUserStore.getState().setUser(userData);
             },
         );
 

@@ -14,7 +14,7 @@ import {
     taskStatusOptions,
 } from '@/constants/taskStatusOptions';
 import useAssignedProjects from '@/hooks/project/useAssignedProjects';
-import { getLoggedInUser } from '@/hooks/shared/useGetLoggedInUser';
+import { useUser } from '@/hooks/shared/useGetLoggedInUser';
 
 export interface TaskFormValues {
     title: string;
@@ -42,6 +42,7 @@ const defaultValues: TaskFormValues = {
 };
 
 export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
+    const user = useUser();
     const { projects: assignedProjects } = useAssignedProjects();
 
     const {
@@ -70,7 +71,6 @@ export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
     const onSubmitForm = async (
         data: TaskFormValues & { project_id: string },
     ) => {
-        const user = await getLoggedInUser();
         if (!user?.id) return;
         const { project_id: _, ...rest } = data;
         const payload = {

@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase/client';
 import { UserProfileTypes } from '@/types/user/userProfile.types';
-import { getLoggedInUser } from './useGetLoggedInUser';
+import { getLoggedInUser } from '@/store/userStore';
 
 type UseGetUserProfileResult = {
     profile: UserProfileTypes | null;
@@ -12,7 +12,7 @@ type UseGetUserProfileResult = {
 };
 
 async function fetchUserProfile(): Promise<UserProfileTypes | null> {
-    const user = await getLoggedInUser();
+    const user = getLoggedInUser();
 
     if (!user) {
         return null;

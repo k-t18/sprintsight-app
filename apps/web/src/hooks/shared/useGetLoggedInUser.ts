@@ -1,17 +1,13 @@
 'use client';
 
-import { supabase } from '@/lib/supabase/client';
-import type { User } from '@supabase/supabase-js';
+import { useUserStore } from '@/store/userStore';
 
-export async function getLoggedInUser(): Promise<User | null> {
-    const {
-        data: { user },
-        error,
-    } = await supabase.auth.getUser();
+/** Returns current user from Zustand store (synced on login/auth change). */
+export function useUser() {
+    return useUserStore((s) => s.user);
+}
 
-    if (error) {
-        throw error;
-    }
-
-    return user ?? null;
+/** Sync getter for use outside React (e.g. in queryFns). */
+export function getLoggedInUser() {
+    return useUserStore.getState().user;
 }
