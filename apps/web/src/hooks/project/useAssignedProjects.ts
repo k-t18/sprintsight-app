@@ -22,11 +22,14 @@ async function fetchAssignedProjects(): Promise<ProjectTypes[]> {
             )
         `,
         )
+        .eq('project.status', 'active')
         .eq('profile_id', user.id);
 
     if (error) throw error;
     const projects = (data ?? [])
-        .flatMap((row) => (Array.isArray(row.project) ? row.project : [row.project]))
+        .flatMap((row) =>
+            Array.isArray(row.project) ? row.project : [row.project],
+        )
         .filter(Boolean);
     return projects as ProjectTypes[];
 }

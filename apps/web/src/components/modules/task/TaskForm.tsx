@@ -19,11 +19,12 @@ import { useUser } from '@/hooks/shared/useGetLoggedInUser';
 export interface TaskFormValues {
     title: string;
     description: string;
+    sprint_id: string;
+    project_id: string;
     priority: string;
     status: string;
     start_date: string | null;
     end_date: string | null;
-    sprint_id: string;
 }
 
 interface TaskFormProps {
@@ -34,11 +35,12 @@ interface TaskFormProps {
 const defaultValues: TaskFormValues = {
     title: '',
     description: '',
+    project_id: '',
+    sprint_id: '',
     priority: 'medium',
     status: 'todo',
     start_date: '',
     end_date: '',
-    sprint_id: '',
 };
 
 export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
@@ -72,11 +74,10 @@ export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
         data: TaskFormValues & { project_id: string },
     ) => {
         if (!user?.id) return;
-        const { project_id: _, ...rest } = data;
         const payload = {
-            ...rest,
-            start_date: rest.start_date?.trim() ? rest.start_date : null,
-            end_date: rest.end_date?.trim() ? rest.end_date : null,
+            ...data,
+            start_date: data.start_date?.trim() ? data.start_date : null,
+            end_date: data.end_date?.trim() ? data.end_date : null,
             created_by: user.id,
         };
         try {
@@ -115,7 +116,8 @@ export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
                             wrapperClassName=""
                             {...field}
                             onChange={(e) => {
-                                field.onChange(e);
+                                const value = e.target.value;
+                                field.onChange(value);
                                 setValue('sprint_id', '');
                             }}
                         />
