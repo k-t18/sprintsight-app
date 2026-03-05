@@ -24,6 +24,21 @@ const Dashboard = () => {
         router.push('/auth/login');
     };
 
+    const handleTestEdgeFunction = async () => {
+        const { data, error } = await supabase.functions.invoke(
+            'tasks-count-list',
+            {
+                body: { dev_id: '92dda130-7e77-4eb1-a5e7-6283e48fecdf' },
+            },
+        );
+
+        if (error) {
+            console.error('tasks-count-list error', error);
+        } else {
+            console.log('tasks-count-list data', data);
+        }
+    };
+
     const handleTaskSubmit = (data: any) => {
         console.log('Create task from dashboard', data);
         setActiveForm(null);
@@ -120,6 +135,19 @@ const Dashboard = () => {
                             <ArrowRight
                                 size={20}
                                 className="text-brand-textMuted group-hover:text-emerald-400"
+                            />
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleTestEdgeFunction}
+                            className="flex items-center justify-between px-6 py-4 border-2 border-brand-border rounded-lg hover:border-sky-400 hover:bg-sky-400/10 transition-all duration-200 group"
+                        >
+                            <span className="font-semibold text-brand-textSecondary group-hover:text-sky-400">
+                                Test Edge Function
+                            </span>
+                            <ArrowRight
+                                size={20}
+                                className="text-brand-textMuted group-hover:text-sky-400"
                             />
                         </button>
                     </div>
