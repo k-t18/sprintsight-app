@@ -84,7 +84,7 @@ const Dashboard = () => {
                     </button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                     {stats.map((stat) => {
                         const Icon = stat.icon;
                         return (
@@ -118,7 +118,7 @@ const Dashboard = () => {
                             </Link>
                         );
                     })}
-                </div>
+                </div> */}
 
                 <div className="bg-brand-surface rounded-xl border border-brand-border p-8">
                     <h2 className="text-2xl font-bold text-brand-text mb-6">
