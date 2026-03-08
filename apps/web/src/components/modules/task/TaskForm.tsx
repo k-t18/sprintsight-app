@@ -1,7 +1,9 @@
 'use client';
 
 import { useForm, Controller } from 'react-hook-form';
+import { useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase/client';
+import { TASKS_COUNT_QUERY_KEY } from '@/hooks/tasks/useFetchTasksCount';
 import {
     FormInput,
     FormTextarea,
@@ -45,6 +47,7 @@ const defaultValues: TaskFormValues = {
 
 export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
     const user = useUser();
+    const queryClient = useQueryClient();
     const { projects: assignedProjects } = useAssignedProjects();
 
     const {
@@ -86,6 +89,7 @@ export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
                 console.error(error);
                 return;
             }
+            await queryClient.invalidateQueries({ queryKey: TASKS_COUNT_QUERY_KEY });
             onSubmit(payload);
             reset({ ...defaultValues, project_id: '' });
         } catch (error) {
