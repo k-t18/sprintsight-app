@@ -89,7 +89,9 @@ export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
                 console.error(error);
                 return;
             }
-            await queryClient.invalidateQueries({ queryKey: TASKS_COUNT_QUERY_KEY });
+            await queryClient.invalidateQueries({
+                queryKey: TASKS_COUNT_QUERY_KEY,
+            });
             onSubmit(payload);
             reset({ ...defaultValues, project_id: '' });
         } catch (error) {
@@ -98,13 +100,7 @@ export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
     };
 
     return (
-        <div className="bg-brand-surface rounded-xl p-6 border border-brand-border">
-            <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-brand-text">
-                    Create New Task
-                </h2>
-            </div>
-
+        <div className="bg-brand-surface rounded-xl px-6 py-3 border border-brand-border">
             <form onSubmit={rhfSubmit(onSubmitForm)} className="space-y-5">
                 <Controller
                     name="project_id"

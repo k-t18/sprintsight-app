@@ -19,7 +19,9 @@ const FormDrawer: React.FC<FormDrawerProps> = ({
     return (
         <div
             className={`fixed inset-0 z-50 flex transition-opacity duration-300 ${
-                open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                open
+                    ? 'opacity-100 pointer-events-auto'
+                    : 'opacity-0 pointer-events-none'
             }`}
         >
             <button
@@ -51,7 +53,7 @@ const FormDrawer: React.FC<FormDrawerProps> = ({
                         <X size={18} className="text-brand-textSecondary" />
                     </button>
                 </div>
-                <div className="flex-1 overflow-y-auto p-6">{children}</div>
+                <div className="flex-1 overflow-y-auto">{children}</div>
             </div>
         </div>
     );
